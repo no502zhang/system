@@ -1,0 +1,18 @@
+server:
+  port: 8300
+  servlet:
+    context-path: /system
+
+spring:
+  application:
+    name: system
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.118.71:3306/dev?characterEncoding=utf-8
+    username: zhang
+    password: 123456
+
+#log
+logging:
+  config: classpath:config/logback-spring.xml
+  path: /application/log/system_logs
