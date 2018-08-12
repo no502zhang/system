@@ -7,13 +7,8 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@RequestMapping("/jobs")
+@RequestMapping("/dicts")
 class DictController() {
-
-    @PostMapping("/test")
-    fun createTest(@RequestBody dictInfo: DictInfo): ResponseEntity<String> {
-        return ResponseEntity.ok().body("OK")
-    }
 
     @PostMapping("/")
     fun create(@RequestBody dictInfo: DictInfo): ResponseEntity<DictInfo> {

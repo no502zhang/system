@@ -26,6 +26,20 @@
             <artifactId>dict-service</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.no502zhang</groupId>
+            <artifactId>file-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.no502zhang</groupId>
+            <artifactId>user-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.no502zhang</groupId>
+            <artifactId>scheduling-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
