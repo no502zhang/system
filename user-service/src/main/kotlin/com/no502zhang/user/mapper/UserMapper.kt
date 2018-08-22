@@ -10,11 +10,11 @@ import org.apache.ibatis.annotations.Param
 interface UserMapper {
     fun insertUser(user: User)
 
-    fun updateUser(@Param("id") id: Int, @Param("user") user: UserUpdateVO): Int
+    fun updateUser(@Param("id") id: Int, @Param("user") user: UserUpdateVO)
 
-    fun deleteUser(@Param("id") id: Int): Int
+    fun deleteUser(@Param("id") id: Int)
 
-    fun getUser(@Param("id") id: Int): User
+    fun getUser(@Param("id") id: Int): User?
 
-    fun listUser(dish: UserQueryVO): List<User>
+    fun listUser(user: UserQueryVO): List<User>?
 }
