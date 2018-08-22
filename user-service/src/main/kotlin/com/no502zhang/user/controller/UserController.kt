@@ -40,8 +40,8 @@ class UserController(val userService: UserService) {
 
     @GetMapping("/")
     fun list(user: UserQueryVO, @RequestParam(name = "pageNum", required = false, defaultValue = "1") pageNum: Int,
-             @RequestParam(name = "pageSize", required = false, defaultValue = "10") pageSize: Int): ResponseEntity<PageInfo<User?>> {
+             @RequestParam(name = "pageSize", required = false, defaultValue = "10") pageSize: Int): ResponseEntity<PageInfo<User>> {
         val result = userService.listUser(user, pageNum, pageSize)
-        return ResponseEntity.ok().body<PageInfo<User?>>(result)
+        return ResponseEntity.ok().body<PageInfo<User>>(result)
     }
 }

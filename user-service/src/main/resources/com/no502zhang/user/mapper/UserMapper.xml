@@ -7,6 +7,10 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
     </resultMap>
 
+    <sql id="filed">
+        id, name
+    </sql>
+
     <insert id="insertUser">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             SELECT LAST_INSERT_ID()
@@ -48,7 +52,8 @@
     </update>
 
     <select id="getUser" resultMap="UserResultMap">
-        select *
+        select
+        <include refid="filed"/>
         from user
         where deleted_flag = 0
         <choose>
@@ -62,11 +67,12 @@
     </select>
 
     <select id="listUser" resultMap="UserResultMap">
-        select *
+        select
+        <include refid="filed"/>
         from user
         where deleted_flag = 0
-        <if test="id != null">
-            and id = #{id, jdbcType=INTEGER}
+        <if test="name != null">
+            and name = #{name, jdbcType=VARCHAR}
         </if>
     </select>
 </mapper>

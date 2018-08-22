@@ -14,7 +14,7 @@ interface UserMapper {
 
     fun deleteUser(@Param("id") id: Int)
 
-    fun getUser(@Param("id") id: Int): User?
+    fun getUser(@Param("id") id: Int): User
 
-    fun listUser(user: UserQueryVO): List<User>?
+    fun listUser(user: UserQueryVO): List<User>
 }
