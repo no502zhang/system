@@ -13,6 +13,7 @@
         <module>starter</module>
         <module>dict-service</module>
         <module>file-service</module>
+        <module>user-api</module>
         <module>user-service</module>
     </modules>
 

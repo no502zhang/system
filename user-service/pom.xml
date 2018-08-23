@@ -30,5 +30,11 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.3</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.no502zhang</groupId>
+            <artifactId>user-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
