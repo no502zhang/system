@@ -1,7 +1,7 @@
 package com.no502zhang.user.controller
 
 import com.github.pagehelper.PageInfo
-import com.no502zhang.user.model.User
+import com.no502zhang.user.domain.User
 import com.no502zhang.user.model.UserQueryVO
 import com.no502zhang.user.model.UserUpdateVO
 import com.no502zhang.user.service.UserService

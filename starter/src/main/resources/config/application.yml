@@ -4,13 +4,20 @@ server:
 spring:
   application:
     name: system
+# 数据库
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.1.105:3306/dev?useUnicode=true&characterEncoding=utf8
     username: zhang
     password: 123456
+#message-service:mail
+  mail:
+    host: smtp.163.com
+    username: no502zhang@163.com
+    password: ZHang123$%
 
 #log
 logging:
   config: classpath:config/logback-spring.xml
   path: /application/log/system_logs
+

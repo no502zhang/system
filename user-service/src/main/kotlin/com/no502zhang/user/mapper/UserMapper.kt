@@ -1,6 +1,6 @@
 package com.no502zhang.user.mapper
 
-import com.no502zhang.user.model.User
+import com.no502zhang.user.domain.User
 import com.no502zhang.user.model.UserQueryVO
 import com.no502zhang.user.model.UserUpdateVO
 import org.apache.ibatis.annotations.Mapper

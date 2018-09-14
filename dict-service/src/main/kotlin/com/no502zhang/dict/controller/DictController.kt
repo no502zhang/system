@@ -1,7 +1,7 @@
 package com.no502zhang.dict.controller
 
 import com.github.pagehelper.PageInfo
-import com.no502zhang.dict.model.DictInfo
+import com.no502zhang.dict.domain.DictInfo
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
