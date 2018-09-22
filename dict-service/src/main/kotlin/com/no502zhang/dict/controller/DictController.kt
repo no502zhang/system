@@ -2,13 +2,15 @@ package com.no502zhang.dict.controller
 
 import com.github.pagehelper.PageInfo
 import com.no502zhang.dict.domain.DictInfo
+import com.no502zhang.dict.dto.GetDictResult
+import com.no502zhang.dict.service.DictService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping("/dicts")
-class DictController() {
+class DictController(val dictService: DictService) {
 
     @PostMapping("/")
     fun create(@RequestBody dictInfo: DictInfo): ResponseEntity<DictInfo> {
@@ -16,7 +18,7 @@ class DictController() {
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable("id") id: Int): ResponseEntity<Boolean> {
+    fun delete(@PathVariable("id") id: String): ResponseEntity<Boolean> {
         return ResponseEntity.ok().body(true)
     }
 
@@ -28,9 +30,9 @@ class DictController() {
     }
 
     @GetMapping("/{id}")
-    fun get(@PathVariable("id") id: Int): ResponseEntity<DictInfo> {
-        val job = DictInfo(id)
-        return ResponseEntity.ok().body(job)
+    fun get(@PathVariable("id") id: String): ResponseEntity<GetDictResult> {
+        val dictResult = GetDictResult(id, "parentId", "code", "name", "data", "remark")
+        return ResponseEntity.ok().body(dictResult)
     }
 
     @GetMapping("/")

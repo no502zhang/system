@@ -1,6 +1,7 @@
 server:
   port: 8000
-
+  servlet:
+    context-path: /system
 spring:
   application:
     name: system
@@ -12,6 +13,12 @@ spring:
     password: 123456
     hikari:
       maximum-pool-size: 100
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: create
+
 #message-service:mail
   mail:
     host: smtp.163.com
