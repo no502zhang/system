@@ -30,10 +30,5 @@
             <artifactId>dict-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>com.no502zhang</groupId>
-            <artifactId>dict-domain</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 </project>

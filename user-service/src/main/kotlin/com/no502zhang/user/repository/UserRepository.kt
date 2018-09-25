@@ -1,6 +1,6 @@
 package com.no502zhang.user.repository
 
-import com.no502zhang.user.po.UserInfo
+import com.no502zhang.user.domain.User
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface UserRepository : JpaRepository<UserInfo, String>
+interface UserRepository : JpaRepository<User, String>

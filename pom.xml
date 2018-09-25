@@ -12,10 +12,8 @@
     <modules>
         <module>starter</module>
         <module>dict-api</module>
-        <module>dict-domain</module>
         <module>dict-service</module>
         <module>user-api</module>
-        <module>user-domain</module>
         <module>user-service</module>
     </modules>
 

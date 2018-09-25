@@ -2,7 +2,6 @@ package com.no502zhang.dict.service
 
 import com.no502zhang.dict.domain.Dict
 import com.no502zhang.dict.dto.*
-import com.no502zhang.dict.po.DictInfo
 import com.no502zhang.dict.repository.DictRepository
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
@@ -14,7 +13,7 @@ class DictService(val dictRepository: DictRepository) {
         // 构造一个领域对象
         var dict = Dict(param.parentId, param.code, param.name, param.data, param.remark)
         // 将领域对象放入持久化仓库
-        dictRepository.save(DictInfo(dict.id, dict.parentId, dict.code, dict.name, dict.data, dict.remark))
+        dictRepository.save(dict)
 
         return CreateDictResult(dict.id, dict.parentId, dict.code, dict.name, dict.data, dict.remark)
     }
@@ -24,24 +23,22 @@ class DictService(val dictRepository: DictRepository) {
     }
 
     fun updateDict(id: String, param: UpdateDictParam): UpdateDictResult {
-        // 从仓库中得到一个持久化对象
-        var dictInfo = dictRepository.findById(id).get()
-        // 由持久化对象中得到一个领域对象
-        var dict = Dict(dictInfo.id, dictInfo.parentId, dictInfo.code, dictInfo.name, dictInfo.data, dictInfo.remark)
+        // 从仓库中得到一个对象
+        var dict = dictRepository.findById(id).get()
         // 修改对象
         dict.name = param.name ?: dict.name
         dict.data = param.data ?: dict.data
         dict.remark = param.remark ?: dict.remark
         // 保存对象
-        dictRepository.save(DictInfo(dict.id, dict.parentId, dict.code, dict.name, dict.data, dict.remark))
+        dictRepository.save(dict)
 
         return UpdateDictResult(dict.id, dict.parentId, dict.code, dict.name, dict.data, dict.remark)
     }
 
     fun getDict(id: String): GetDictResult {
-        val dictInfo = dictRepository.findById(id).get()
+        val dict = dictRepository.findById(id).get()
 
-        return GetDictResult(dictInfo.id, dictInfo.parentId, dictInfo.code, dictInfo.name, dictInfo.data, dictInfo.remark)
+        return GetDictResult(dict.id, dict.parentId, dict.code, dict.name, dict.data, dict.remark)
     }
 
     fun listDict(param: ListDictParam): ListDictResult {
