@@ -39,9 +39,9 @@ class DictService(val dictRepository: DictRepository) {
     }
 
     fun getDict(id: String): GetDictResult {
-        val dict = dictRepository.findById(id).get()
+        val dictInfo = dictRepository.findById(id).get()
 
-        return GetDictResult(dict.id, dict.parentId, dict.code, dict.name, dict.data, dict.remark)
+        return GetDictResult(dictInfo.id, dictInfo.parentId, dictInfo.code, dictInfo.name, dictInfo.data, dictInfo.remark)
     }
 
     fun listDict(param: ListDictParam): ListDictResult {
