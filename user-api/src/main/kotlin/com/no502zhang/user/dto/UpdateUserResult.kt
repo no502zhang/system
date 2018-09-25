@@ -1,3 +1,3 @@
 package com.no502zhang.user.dto
 
-data class UpdateUserResult (val id:String, val name:String)
+data class UpdateUserResult (val id:String, val name:String, var remark: String?)
