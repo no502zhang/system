@@ -2,8 +2,10 @@ package com.no502zhang.user.controller
 
 import com.no502zhang.user.dto.*
 import com.no502zhang.user.service.UserService
+import io.swagger.annotations.Api
 import org.springframework.web.bind.annotation.*
 
+@Api(value = "UserController", description = "用户信息接口")
 @RestController
 @RequestMapping("/users")
 class UserController(val userService: UserService) {
