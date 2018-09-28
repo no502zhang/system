@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service
 class UserService(val userRepository: UserRepository) {
     fun createUser(param: CreateUserParam): CreateUserResult {
         var user = User(param.name, param.remark)
-        var account = Account(user.id, param.account, param.password)
+        var account = Account(user.id, param.account)
+        account.changePassword(param.password)
         user.accounts = setOf(account)
 
         userRepository.save(user)
