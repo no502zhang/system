@@ -33,7 +33,11 @@ class Account(id: String, userId: String, type: AccountType, account: String, pa
     @Column(name = "is_deleted", nullable = false)
     private var deleted: Boolean = false
 
-    fun changePassword(password: String?) {
+    fun changePassword(password: String) {
         this.password = BCryptPasswordEncoder().encode(password)
+    }
+
+    fun checkPassword(password: String): Boolean {
+        return BCryptPasswordEncoder().matches(password, this.password)
     }
 }
