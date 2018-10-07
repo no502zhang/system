@@ -25,7 +25,4 @@ class User(id: String, type: UserType, name: String, remark: String? = null) {
     var remark: String? = remark
     @Column(name = "is_deleted", nullable = false)
     private var deleted: Boolean = false
-
-    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "userId")
-    lateinit var accounts: Set<Account>
 }
