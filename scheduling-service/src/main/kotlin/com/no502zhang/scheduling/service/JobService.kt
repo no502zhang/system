@@ -1,17 +1,63 @@
 package com.no502zhang.scheduling.service
 
-import com.github.pagehelper.Page
-import com.github.pagehelper.PageInfo
-import com.no502zhang.scheduling.model.JobInfo
+import com.no502zhang.scheduling.domain.Job
+import com.no502zhang.scheduling.dto.*
+import com.no502zhang.scheduling.job.RestJob
+import com.no502zhang.scheduling.repository.JobRepository
+import org.quartz.*
+import org.springframework.stereotype.Service
+import org.quartz.JobKey
 
-interface JobService {
-    fun createJob(jobInfo: JobInfo): JobInfo
 
-    fun updateJob(id: Int, jobInfo: JobInfo): JobInfo
+@Service
+class JobService(private val scheduler: Scheduler, private val jobRepository: JobRepository) {
+    private val jobNamePrefix = "job"
+    private val defaultJobGroup = "defaultGroup"
 
-    fun deleteJob(id: Int): Boolean
+    private val triggerNamePrefix = "trigger"
+    private val defaultTriggerGroup = "defaultGroup"
 
-    fun getJob(id: Int): JobInfo
+    fun createJob(param: CreateJobParam): CreateJobResult {
+        // 保存
+        var job = Job(param.name, param.remark, param.cron)
+        jobRepository.save(job)
+        // 配置job信息
+        val jobDetail = JobBuilder.newJob(RestJob::class.java).withIdentity("$jobNamePrefix#${job.id}", defaultJobGroup).build()
+        // 运行参数
+        jobDetail.jobDataMap["jobInfo.id"] = job.id
+        jobDetail.jobDataMap["jobInfo.name"] = job.name
+        // 为job配置触发器
+        val scheduleBuilder = CronScheduleBuilder.cronSchedule(job.cron)
+        val trigger = TriggerBuilder.newTrigger().withIdentity("$triggerNamePrefix#${job.id}", defaultTriggerGroup).withSchedule<CronTrigger>(scheduleBuilder).build()
+        scheduler.scheduleJob(jobDetail, trigger)
 
-    fun listJobs(jobInfo: JobInfo, pageNum: Int = 1, pageSize: Int = 10): PageInfo<JobInfo>
+        return CreateJobResult()
+    }
+
+    fun updateJob(id: String, param: UpdateJobParam): UpdateJobResult {
+        // TODO 查询记录
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun deleteJob(id: String) {
+        // 删除定时任务
+        deleteSchedulerJob(id)
+        // 删除数据库中的记录
+        jobRepository.deleteById(id)
+    }
+
+    fun getJob(id: String, param: GetJobParam): GetJobResult {
+        val key = JobKey.jobKey("$jobNamePrefix#$id", defaultJobGroup)
+        return scheduler.getJobDetail(key).jobDataMap["jobInfo"] as GetJobResult
+    }
+
+    fun listJobs(param: ListJobParam): ListJobReslut {
+        return ListJobReslut()
+    }
+
+    private fun deleteSchedulerJob(id: String): Boolean {
+        val key = JobKey.jobKey("$jobNamePrefix#$id", defaultJobGroup)
+        scheduler.deleteJob(key)
+        return true
+    }
 }

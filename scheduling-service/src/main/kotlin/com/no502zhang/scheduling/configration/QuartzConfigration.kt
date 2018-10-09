@@ -13,19 +13,19 @@ import java.util.*
 class QuartzConfigration {
 
     @Value("\${quartz.scheduler.instanceName}")
-    private val quartzInstanceName: String? = null
+    private lateinit var quartzInstanceName: String
 
-    @Value("\${org.quartz.dataSource.myDS.driver}")
-    private val myDSDriver: String? = null
+    @Value("\${spring.datasource.driver-class-name}")
+    private lateinit var myDSDriver: String
 
-    @Value("\${org.quartz.dataSource.myDS.URL}")
-    private val myDSURL: String? = null
+    @Value("\${spring.datasource.url}")
+    private lateinit var myDSURL: String
 
-    @Value("\${org.quartz.dataSource.myDS.user}")
-    private val myDSUser: String? = null
+    @Value("\${spring.datasource.username}")
+    private lateinit var myDSUser: String
 
-    @Value("\${org.quartz.dataSource.myDS.password}")
-    private val myDSPassword: String? = null
+    @Value("\${spring.datasource.password}")
+    private lateinit var myDSPassword: String
 
     private fun quartzProperties(): Properties {
         val prop = Properties()
@@ -60,6 +60,7 @@ class QuartzConfigration {
         prop["org.quartz.plugin.triggHistory.class"] = "org.quartz.plugins.history.LoggingJobHistoryPlugin"
         prop["org.quartz.plugin.shutdownhook.class"] = "org.quartz.plugins.management.ShutdownHookPlugin"
         prop["org.quartz.plugin.shutdownhook.cleanShutdown"] = "true"
+
         return prop
     }
 

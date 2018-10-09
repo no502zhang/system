@@ -13,6 +13,8 @@
         <module>starter</module>
         <module>dict-api</module>
         <module>dict-service</module>
+        <module>scheduling-api</module>
+        <module>scheduling-service</module>
         <module>user-api</module>
         <module>user-service</module>
         <module>security-api</module>
