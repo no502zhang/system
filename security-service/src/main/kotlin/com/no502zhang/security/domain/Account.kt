@@ -25,7 +25,7 @@ class Account(id: String, ownerType: AccountOwnerType, ownerId: String, type: Ac
     val ownerType: AccountOwnerType = ownerType
     @Column(name = "owner_id", updatable = false, nullable = false, length = 32)
     val ownerId: String = ownerId
-    @Column(name = "type", updatable = false, nullable = false)
+    @Column(name = "typ", updatable = false, nullable = false)
     val type: AccountType = type
     @Column(name = "account", updatable = false, nullable = false)
     val account: String = account
