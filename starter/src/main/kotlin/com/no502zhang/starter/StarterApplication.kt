@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 @ComponentScan("com.no502zhang")
 @EnableJpaRepositories("com.no502zhang")
 @EntityScan("com.no502zhang")
-@EnableFeignClients
+@EnableFeignClients("com.no502zhang")
 class StarterApplication
 
 fun main(args: Array<String>) {

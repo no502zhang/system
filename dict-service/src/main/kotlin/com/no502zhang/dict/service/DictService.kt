@@ -11,11 +11,11 @@ class DictService(val dictRepository: DictRepository) {
 
     fun createDict(param: CreateDictParam): CreateDictResult {
         // 构造一个领域对象
-        var dict = Dict(param.parentId, param.code, param.name, param.data, param.remark)
+        var dict = Dict(param.parentId, param.code, param.name, param.value, param.remark)
         // 将领域对象放入持久化仓库
         dictRepository.save(dict)
 
-        return CreateDictResult(dict.id, dict.parentId, dict.code, dict.name, dict.data, dict.remark)
+        return CreateDictResult(dict.id, dict.parentId, dict.code, dict.name, dict.value, dict.remark)
     }
 
     fun deleteDict(id: String) {
@@ -27,18 +27,18 @@ class DictService(val dictRepository: DictRepository) {
         var dict = dictRepository.findById(id).get()
         // 修改对象
         dict.name = param.name ?: dict.name
-        dict.data = param.data ?: dict.data
+        dict.value = param.value ?: dict.value
         dict.remark = param.remark ?: dict.remark
         // 保存对象
         dictRepository.save(dict)
 
-        return UpdateDictResult(dict.id, dict.parentId, dict.code, dict.name, dict.data, dict.remark)
+        return UpdateDictResult(dict.id, dict.parentId, dict.code, dict.name, dict.value, dict.remark)
     }
 
     fun getDict(id: String): GetDictResult {
         val dict = dictRepository.findById(id).get()
 
-        return GetDictResult(dict.id, dict.parentId, dict.code, dict.name, dict.data, dict.remark)
+        return GetDictResult(dict.id, dict.parentId, dict.code, dict.name, dict.value, dict.remark)
     }
 
     fun listDict(param: ListDictParam): ListDictResult {

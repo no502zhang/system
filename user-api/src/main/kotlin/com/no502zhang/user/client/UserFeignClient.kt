@@ -6,20 +6,20 @@ import org.springframework.web.bind.annotation.*
 
 @FeignClient("SYSTEM")
 interface UserFeignClient {
-    @PostMapping("/users")
+    @PostMapping("/system/users")
     fun create(@RequestBody param: CreateUserParam): CreateUserResult
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/system/users/{id}")
     fun delete(@PathVariable("id") id: String)
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/system/users/{id}")
     fun update(@PathVariable("id") id: String,
                @RequestBody param: UpdateUserParam): UpdateUserResult
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/system/users/{id}")
     fun get(@PathVariable("id") id: String): GetUserResult
 
-    @GetMapping("/users/")
+    @GetMapping("/system/users/")
     fun list(@RequestParam(name = "name", required = false) name: String?,
              @RequestParam(name = "pageNum", required = false, defaultValue = "1") pageNum: Int,
              @RequestParam(name = "pageSize", required = false, defaultValue = "10") pageSize: Int): ListUserResult

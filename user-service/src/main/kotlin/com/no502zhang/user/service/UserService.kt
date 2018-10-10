@@ -1,7 +1,7 @@
 package com.no502zhang.user.service
 
-
-import com.no502zhang.user.domain.Account
+import com.no502zhang.security.client.AccountFeignClient
+import com.no502zhang.security.dto.CreateAccountParam
 import com.no502zhang.user.domain.User
 import com.no502zhang.user.dto.*
 import com.no502zhang.user.repository.UserRepository
@@ -9,14 +9,14 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 
 @Service
-class UserService(val userRepository: UserRepository) {
+class UserService(val userRepository: UserRepository, val accountFeignClient: AccountFeignClient) {
     fun createUser(param: CreateUserParam): CreateUserResult {
         var user = User(param.name, param.remark)
-        var account = Account(user.id, param.account)
-        account.changePassword(param.password)
-        user.accounts = setOf(account)
 
         userRepository.save(user)
+
+        accountFeignClient.create(CreateAccountParam(user.id, param.account, param.password))
+
         return CreateUserResult(user.id, user.name, user.remark)
     }
 

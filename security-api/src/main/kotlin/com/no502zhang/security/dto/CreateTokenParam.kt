@@ -1,4 +1,3 @@
 package com.no502zhang.security.dto
 
-class CreateTokenParam {
-}
+data class CreateTokenParam(val account: String, val password: String)

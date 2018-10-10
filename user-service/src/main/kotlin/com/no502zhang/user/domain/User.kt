@@ -17,7 +17,7 @@ class User(id: String, type: UserType, name: String, remark: String? = null) {
     @Id
     @Column(name = "id", updatable = false, nullable = false, length = 32)
     val id: String = id
-    @Column(name = "type", updatable = false, nullable = false)
+    @Column(name = "typ", updatable = false, nullable = false)
     val type: UserType = type
     @Column(name = "name", nullable = false, length = 100)
     var name: String = name
@@ -25,7 +25,4 @@ class User(id: String, type: UserType, name: String, remark: String? = null) {
     var remark: String? = remark
     @Column(name = "is_deleted", nullable = false)
     private var deleted: Boolean = false
-
-    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "userId")
-    lateinit var accounts: Set<Account>
 }

@@ -7,11 +7,11 @@ import com.no502zhang.security.dto.UpdateTokenResult
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("tokens")
+@RequestMapping("/tokens")
 class TokenController {
     @PostMapping("")
     fun createToken(@RequestBody param: CreateTokenParam): CreateTokenResult {
-        return CreateTokenResult()
+        return CreateTokenResult("test")
     }
 
     @DeleteMapping("/{id}")

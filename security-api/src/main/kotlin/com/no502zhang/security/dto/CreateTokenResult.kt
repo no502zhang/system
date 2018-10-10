@@ -1,4 +1,3 @@
 package com.no502zhang.security.dto
 
-class CreateTokenResult {
-}
+data class CreateTokenResult(val token: String)
