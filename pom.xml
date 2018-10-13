@@ -17,6 +17,8 @@
         <module>user-service</module>
         <module>security-api</module>
         <module>security-service</module>
+        <module>message-api</module>
+        <module>message-service</module>
     </modules>
 
     <parent>

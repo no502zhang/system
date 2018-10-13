@@ -5,6 +5,7 @@ server:
 spring:
   application:
     name: system
+
 # 数据库
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -23,7 +24,7 @@ spring:
   mail:
     host: smtp.163.com
     username: no502zhang@163.com
-    password: ZHang123$%
+    password: a19870504
 
 #log
 logging:
