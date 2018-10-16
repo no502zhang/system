@@ -7,8 +7,11 @@ import com.no502zhang.security.dto.CreateAccountResult
 import com.no502zhang.user.UserTestStarterApplication
 import com.no502zhang.user.domain.User
 import com.no502zhang.user.dto.CreateUserParam
+import com.no502zhang.user.dto.ListUserParam
+import com.no502zhang.user.dto.UpdateUserParam
 import com.no502zhang.user.repository.UserRepository
-import junit.framework.Assert.assertEquals
+import com.no502zhang.user.vo.UserType
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,6 +19,8 @@ import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.springframework.test.context.web.WebAppConfiguration
@@ -43,18 +48,75 @@ class UserControllerTest {
     @Before
     fun init() {
         mvc = MockMvcBuilders.standaloneSetup(userController).build()
-        Mockito.`when`(accountFeignClient.create(CreateAccountParam("ownerId", "account", "password"))).thenReturn(CreateAccountResult("id", "account"))
     }
 
     @Test
     fun testCreate() {
         val param = CreateUserParam("account", "password", "name", "remark")
-        var user = User(param.name, param.remark)
+        val user = User(param.name, param.remark)
         Mockito.`when`(userRepository.save(user)).thenReturn(user)
         Mockito.`when`(accountFeignClient.create(CreateAccountParam(user.id, param.account, param.password))).thenReturn(CreateAccountResult(UUID.randomUUID().toString().replace("-", ""), param.account))
 
 
         val request = MockMvcRequestBuilders.post("/users").contentType(MediaType.APPLICATION_JSON_UTF8).content(ObjectMapper().writeValueAsString(param))
+        val result = mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk).andReturn()
+
+        assertEquals(result.response.status, 200)
+
+        println(result.response.contentAsString)
+    }
+
+    @Test
+    fun testDelete() {
+        val id = "deleteuserid"
+//        Mockito.doNothing().`when`(userRepository.deleteById(id))
+
+        val request = MockMvcRequestBuilders.delete("/users/$id")
+        val result = mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk).andReturn()
+
+        assertEquals(result.response.status, 200)/**/
+    }
+
+    @Test
+    fun testUpdate() {
+        val id = "updateuserid"
+        val param = UpdateUserParam("name", "remark")
+        val user = User(id, UserType.PERSONAL, param.name ?: "name", param.remark)
+        Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
+        Mockito.`when`(userRepository.save(user)).thenReturn(user)
+
+        val request = MockMvcRequestBuilders.put("/users/$id").contentType(MediaType.APPLICATION_JSON_UTF8).content(ObjectMapper().writeValueAsString(param))
+        val result = mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk).andReturn()
+
+        assertEquals(result.response.status, 200)
+
+        println(result.response.contentAsString)
+    }
+
+    @Test
+    fun testGet() {
+        val id = "getuserid"
+        val user = User(id, UserType.PERSONAL, "name", "remark")
+        Mockito.`when`(userRepository.findById(id)).thenReturn(Optional.of(user))
+
+        val request = MockMvcRequestBuilders.get("/users/$id")
+        val result = mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk).andReturn()
+
+        assertEquals(result.response.status, 200)
+
+        println(result.response.contentAsString)
+    }
+
+    @Test
+    fun testList() {
+        val param = ListUserParam(pageNum = 1, pageSize = 10)
+        var userList = mutableListOf<User>()
+        for (i in 1..10) {
+            userList.add(i, User("name$i", "remark$i"))
+        }
+        Mockito.`when`(userRepository.findAll(PageRequest.of(param.pageNum, param.pageSize))).thenReturn(Page.empty())
+
+        val request = MockMvcRequestBuilders.get("/users/")
         val result = mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk).andReturn()
 
         assertEquals(result.response.status, 200)
