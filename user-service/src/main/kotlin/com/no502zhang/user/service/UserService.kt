@@ -15,7 +15,7 @@ class UserService(val userRepository: UserRepository, val accountFeignClient: Ac
 
         userRepository.save(user)
 
-        accountFeignClient.create(CreateAccountParam(user.id, param.account, param.password))
+        accountFeignClient.create(CreateAccountParam(ownerId = user.id, account = param.account, password = param.password))
 
         return CreateUserResult(user.id, user.name, user.remark)
     }

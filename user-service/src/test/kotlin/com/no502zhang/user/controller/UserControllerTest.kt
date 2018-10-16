@@ -55,8 +55,8 @@ class UserControllerTest {
         val param = CreateUserParam("account", "password", "name", "remark")
         val user = User(param.name, param.remark)
         Mockito.`when`(userRepository.save(user)).thenReturn(user)
-        Mockito.`when`(accountFeignClient.create(CreateAccountParam(user.id, param.account, param.password))).thenReturn(CreateAccountResult(UUID.randomUUID().toString().replace("-", ""), param.account))
-
+        Mockito.`when`(accountFeignClient.create(CreateAccountParam(ownerId = user.id, account = param.account, password = param.password)))
+                .thenReturn(CreateAccountResult(UUID.randomUUID().toString().replace("-", ""), param.account))
 
         val request = MockMvcRequestBuilders.post("/users").contentType(MediaType.APPLICATION_JSON_UTF8).content(ObjectMapper().writeValueAsString(param))
         val result = mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk).andReturn()
