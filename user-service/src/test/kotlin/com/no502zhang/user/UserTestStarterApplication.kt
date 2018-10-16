@@ -1,7 +1,7 @@
 package com.no502zhang.user
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
-@SpringBootApplication
-class UserTestStarterApplication {
-}
+@SpringBootApplication(exclude = [DataSourceAutoConfiguration::class])
+class UserTestStarterApplication

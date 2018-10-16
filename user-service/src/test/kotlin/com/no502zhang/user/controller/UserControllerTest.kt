@@ -69,12 +69,9 @@ class UserControllerTest {
     @Test
     fun testDelete() {
         val id = "deleteuserid"
-//        Mockito.doNothing().`when`(userRepository.deleteById(id))
 
         val request = MockMvcRequestBuilders.delete("/users/$id")
-        val result = mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk).andReturn()
-
-        assertEquals(result.response.status, 200)/**/
+        mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk)
     }
 
     @Test
@@ -112,7 +109,7 @@ class UserControllerTest {
         val param = ListUserParam(pageNum = 1, pageSize = 10)
         val pageRequest = PageRequest.of(param.pageNum, param.pageSize)
         val total = 100L
-        var userList = mutableListOf<User>()
+        val userList = mutableListOf<User>()
         for (i in 1..10) {
             userList.add(User("name$i", "remark$i"))
         }
