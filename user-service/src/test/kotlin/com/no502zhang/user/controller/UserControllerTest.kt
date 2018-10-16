@@ -19,7 +19,7 @@ import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
@@ -110,11 +110,13 @@ class UserControllerTest {
     @Test
     fun testList() {
         val param = ListUserParam(pageNum = 1, pageSize = 10)
+        val pageRequest = PageRequest.of(param.pageNum, param.pageSize)
+        val total = 100L
         var userList = mutableListOf<User>()
         for (i in 1..10) {
-            userList.add(i, User("name$i", "remark$i"))
+            userList.add(User("name$i", "remark$i"))
         }
-        Mockito.`when`(userRepository.findAll(PageRequest.of(param.pageNum, param.pageSize))).thenReturn(Page.empty())
+        Mockito.`when`(userRepository.findAll(pageRequest)).thenReturn(PageImpl(userList, pageRequest, total))
 
         val request = MockMvcRequestBuilders.get("/users/")
         val result = mvc.perform(request).andExpect(MockMvcResultMatchers.status().isOk).andReturn()
