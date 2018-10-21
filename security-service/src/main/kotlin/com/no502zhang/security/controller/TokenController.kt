@@ -1,5 +1,6 @@
 package com.no502zhang.security.controller
 
+import com.alibaba.fastjson.JSON
 import com.no502zhang.security.dto.CreateTokenParam
 import com.no502zhang.security.dto.CreateTokenResult
 import com.no502zhang.security.dto.UpdateTokenParam
@@ -15,8 +16,9 @@ class TokenController(val tokenService: TokenService) {
     fun createToken(@RequestBody param: CreateTokenParam): CreateTokenResult {
         when (param.accountType) {
             AccountType.ACCOUNT -> {
-                tokenService.createTokenByAccount(param.account, param.password ?: throw IllegalArgumentException())
-                return CreateTokenResult("test")
+                val jwt = tokenService.createTokenByAccount(param.account,
+                        param.password ?: throw IllegalArgumentException())
+                return CreateTokenResult(token = jwt.encoded, expires = JSON.parseObject(jwt.claims).getDate("exp"))
             }
             else -> throw IllegalArgumentException()
         }

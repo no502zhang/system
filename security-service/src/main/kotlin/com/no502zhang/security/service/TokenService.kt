@@ -1,7 +1,7 @@
 package com.no502zhang.security.service
 
-import com.no502zhang.security.domain.Token
+import org.springframework.security.jwt.Jwt
 
 interface TokenService {
-    fun createTokenByAccount(account: String, password: String): Token
+    fun createTokenByAccount(account: String, password: String): Jwt
 }

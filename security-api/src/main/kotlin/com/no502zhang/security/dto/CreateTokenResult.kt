@@ -1,3 +1,5 @@
 package com.no502zhang.security.dto
 
-data class CreateTokenResult(val token: String)
+import java.util.*
+
+data class CreateTokenResult(val type: String = "jwt", val token: String, val expires: Date)
