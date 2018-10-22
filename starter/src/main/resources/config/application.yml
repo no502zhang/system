@@ -9,7 +9,7 @@ spring:
 # 数据库
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.1.105:3306/dev?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://192.168.118.45:3306/dev?useUnicode=true&characterEncoding=utf8
     username: zhang
     password: 123456
     hikari:
@@ -19,6 +19,14 @@ spring:
       hibernate:
         hbm2ddl:
           auto: update
+
+# redis
+  redis:
+    host: 192.168.118.45
+    port: 6379
+    Pool:
+      maxIdle: 10
+      maxActive: 10
 
 #message-service:mail
   mail:
@@ -31,3 +39,7 @@ logging:
   config: classpath:config/logback-spring.xml
   path: /application/log/system_logs
 
+# jwt配置
+jwt:
+  secret: 123456
+  ttl: 600000
