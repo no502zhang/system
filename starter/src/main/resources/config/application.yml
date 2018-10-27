@@ -5,10 +5,11 @@ server:
 spring:
   application:
     name: system
+
 # 数据库
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.118.45:3306/dev?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://192.168.1.105:3306/dev?useUnicode=true&characterEncoding=utf8
     username: zhang
     password: 123456
     hikari:
@@ -19,18 +20,29 @@ spring:
         hbm2ddl:
           auto: update
 
+# redis
+  redis:
+    host: 192.168.118.45
+    port: 6379
+    Pool:
+      maxIdle: 10
+      maxActive: 10
+
 #message-service:mail
   mail:
     host: smtp.163.com
     username: no502zhang@163.com
-    password: ZHang123$%
+    password: a19870504
 
 #log
 logging:
   config: classpath:config/logback-spring.xml
   path: /application/log/system_logs
-
 # 定时任务
 quartz:
   scheduler:
     instanceName: mScheduler
+# jwt配置
+jwt:
+  secret: 123456
+  ttl: 600000
