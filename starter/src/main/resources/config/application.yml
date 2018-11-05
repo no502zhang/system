@@ -30,7 +30,7 @@ spring:
 # mongodb
   data:
     mongodb:
-      uri: mongodb://192.168.118.45:27017/dev
+      uri: mongodb://192.168.1.105:27017/dev
 
 #message-service:mail
   mail:

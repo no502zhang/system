@@ -1,4 +1,3 @@
 package com.no502zhang.log.dto
 
-class CreateOperationResult {
-}
+data class CreateOperationResult(val id: String, val code: String)

@@ -1,4 +1,3 @@
 package com.no502zhang.log.dto
 
-class CreateOperationParam {
-}
+data class CreateOperationParam(val code: String, val name: String)

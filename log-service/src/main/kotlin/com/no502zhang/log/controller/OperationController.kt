@@ -1,15 +1,17 @@
 package com.no502zhang.log.controller
 
 import com.no502zhang.log.dto.*
+import com.no502zhang.log.service.OperationService
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/operations")
-class OperationController {
+class OperationController(private val operationService: OperationService) {
 
     @PostMapping("")
     fun create(@RequestBody param: CreateOperationParam): CreateOperationResult {
-        return CreateOperationResult()
+        val operation = operationService.createOperation(param.code)
+        return CreateOperationResult(operation.id, operation.code)
     }
 
     @DeleteMapping("/{id}")
