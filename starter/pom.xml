@@ -41,6 +41,11 @@
         </dependency>
         <dependency>
             <groupId>com.no502zhang</groupId>
+            <artifactId>log-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.no502zhang</groupId>
             <artifactId>user-service</artifactId>
             <version>${project.version}</version>
         </dependency>

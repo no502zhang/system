@@ -19,7 +19,6 @@ spring:
       hibernate:
         hbm2ddl:
           auto: update
-
 # redis
   redis:
     host: 192.168.118.45
@@ -27,6 +26,11 @@ spring:
     Pool:
       maxIdle: 10
       maxActive: 10
+
+# mongodb
+  data:
+    mongodb:
+      uri: mongodb://192.168.118.45:27017/dev
 
 #message-service:mail
   mail:
@@ -42,6 +46,7 @@ logging:
 quartz:
   scheduler:
     instanceName: mScheduler
+
 # jwt配置
 jwt:
   secret: 123456
