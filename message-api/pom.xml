@@ -11,5 +11,10 @@
 
     <artifactId>message-api</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-openfeign-core</artifactId>
+        </dependency>
+    </dependencies>
 </project>
